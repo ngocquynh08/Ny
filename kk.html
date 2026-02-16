@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chuc Mung Nam Moi 2025</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a12;
+      --fg: #fff5e6;
+      --accent: #ffd700;
+      --red: #dc2626;
+      --gold: #fbbf24;
+      --border: rgba(255, 215, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    *:focus {
+      outline: none;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .font-display {
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .night-sky {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        #0a0a18 0%, 
+        #0f0f24 30%, 
+        #1a1a35 60%, 
+        #12121f 100%);
+      z-index: 0;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    #fireworks-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .flower-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      z-index: 3;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 20px;
+    }
+
+    .flower-pot {
+      position: relative;
+      width: 200px;
+      height: 280px;
+    }
+
+    .flower-pot.left { transform: rotate(-5deg); }
+    .flower-pot.right { transform: rotate(5deg); }
+
+    .pot {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 60px;
+      background: linear-gradient(180deg, #8B4513 0%, #5D2E0C 100%);
+      border-radius: 5px 5px 15px 15px;
+      box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3);
+    }
+
+    .pot::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      height: 15px;
+      background: linear-gradient(180deg, #A0522D 0%, #8B4513 100%);
+      border-radius: 5px;
+    }
+
+    .branch {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      width: 4px;
+      height: 180px;
+      background: linear-gradient(180deg, #4a3728 0%, #2d1f15 100%);
+      transform-origin: bottom center;
+      border-radius: 2px;
+    }
+
+    .branch::before, .branch::after {
+      content: '';
+      position: absolute;
+      width: 3px;
+      background: linear-gradient(180deg, #4a3728 0%, #2d1f15 100%);
+      border-radius: 2px;
+    }
+
+    .branch::before { height: 100px; top: 20px; left: -40px; transform: rotate(-30deg); }
+    .branch::after { height: 80px; top: 40px; right: -35px; transform: rotate(25deg); }
+
+    .mai-flower { position: absolute; width: 20px; height: 20px; }
+    .mai-flower::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, #fff700 0%, #ffd700 50%, #daa520 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .mai-petal {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      background: linear-gradient(180deg, #fff7a0 0%, #ffd700 100%);
+      border-radius: 50% 50% 50% 50%;
+      transform-origin: bottom center;
+    }
+
+    .mai-petal:nth-child(1) { transform: rotate(0deg) translateY(-8px); }
+    .mai-petal:nth-child(2) { transform: rotate(72deg) translateY(-8px); }
+    .mai-petal:nth-child(3) { transform: rotate(144deg) translateY(-8px); }
+    .mai-petal:nth-child(4) { transform: rotate(216deg) translateY(-8px); }
+    .mai-petal:nth-child(5) { transform: rotate(288deg) translateY(-8px); }
+
+    .dao-flower { position: absolute; width: 18px; height: 18px; }
+    .dao-flower::before {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: radial-gradient(circle, #fff 0%, #ffb6c1 50%, #ff69b4 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 105, 180, 0.5);
+    }
+
+    .dao-petal {
+      position: absolute;
+      width: 7px;
+      height: 12px;
+      background: linear-gradient(180deg, #ffc0cb 0%, #ff69b4 100%);
+      border-radius: 50% 50% 50% 50%;
+      transform-origin: bottom center;
+    }
+
+    .dao-petal:nth-child(1) { transform: rotate(0deg) translateY(-7px); }
+    .dao-petal:nth-child(2) { transform: rotate(72deg) translateY(-7px); }
+    .dao-petal:nth-child(3) { transform: rotate(144deg) translateY(-7px); }
+    .dao-petal:nth-child(4) { transform: rotate(216deg) translateY(-7px); }
+    .dao-petal:nth-child(5) { transform: rotate(288deg) translateY(-7px); }
+
+    .flower-animate { animation: flowerSway 4s ease-in-out infinite; }
+
+    @keyframes flowerSway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(3deg); }
+    }
+
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    .envelope-container { perspective: 1000px; cursor: pointer; z-index: 20; }
+
+    .envelope {
+      width: 280px;
+      height: 200px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: envelopeFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes envelopeFloat {
+      0%, 100% { transform: translateY(0) rotateX(5deg); }
+      50% { transform: translateY(-15px) rotateX(-5deg); }
+    }
+
+    .envelope-body {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      border-radius: 12px;
+      position: absolute;
+      box-shadow: 0 20px 60px rgba(220, 38, 38, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .envelope-body::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 2px solid rgba(255, 215, 0, 0.4);
+      border-radius: 8px;
+    }
+
+    .envelope-flap {
+      width: 100%;
+      height: 50%;
+      background: linear-gradient(180deg, #b91c1c 0%, #dc2626 100%);
+      position: absolute;
+      top: 0;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      transform-origin: top center;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+    }
+
+    .envelope:hover .envelope-flap { transform: rotateX(180deg); }
+
+    .envelope-seal {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #fbbf24 0%, #d97706 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(251, 191, 36, 0.5);
+      transition: transform 0.3s;
+    }
+
+    .envelope:hover .envelope-seal { transform: translateX(-50%) scale(1.1); }
+
+    .envelope-seal span {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: #7c2d12;
+      font-weight: 700;
+    }
+
+    .envelope-inner {
+      width: 90%;
+      height: 80%;
+      background: linear-gradient(180deg, #fef3c7 0%, #fde68a 100%);
+      position: absolute;
+      top: 15%;
+      left: 5%;
+      border-radius: 8px;
+      transition: transform 0.5s 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .envelope:hover .envelope-inner { transform: translateY(-30px); }
+    .envelope-inner::before { content: 'Xin Chào'; font-size: 18px; color: #92400e; font-weight: 600; }
+
+    .password-container {
+      background: linear-gradient(145deg, rgba(30, 20, 50, 0.9) 0%, rgba(20, 10, 30, 0.95) 100%);
+      border: 2px solid var(--border);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 420px;
+      width: 90%;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 215, 0, 0.1);
+    }
+
+    .input-field {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 24px;
+      color: var(--fg);
+      font-size: 18px;
+      text-align: center;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+    }
+
+    .input-field::placeholder { color: rgba(255, 255, 255, 0.4); }
+
+    .btn {
+      padding: 16px 36px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, #d97706 100%);
+      color: #1a0a0a;
+      box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(251, 191, 36, 0.6);
+    }
+
+    .greeting-card {
+      background: linear-gradient(145deg, rgba(30, 20, 50, 0.95) 0%, rgba(20, 10, 30, 0.98) 100%);
+      border: 2px solid var(--accent);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      animation: cardReveal 0.8s ease-out;
+      box-shadow: 0 0 80px rgba(255, 215, 0, 0.15), 0 30px 60px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes cardReveal {
+      0% { opacity: 0; transform: scale(0.8) rotateY(20deg); }
+      100% { opacity: 1; transform: scale(1) rotateY(0); }
+    }
+
+    .greeting-text {
+      font-size: 17px;
+      line-height: 1.9;
+      color: rgba(255, 255, 255, 0.95);
+      white-space: pre-line;
+    }
+
+    .group-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+
+    .shake { animation: shake 0.4s; }
+
+    .lantern {
+      position: fixed;
+      z-index: 4;
+      animation: lanternFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes lanternFloat {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-15px) rotate(3deg); }
+    }
+
+    .lantern-body {
+      width: 40px;
+      height: 50px;
+      background: linear-gradient(180deg, #ff4444 0%, #cc0000 100%);
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+    }
+
+    .lantern-body::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 10px;
+      background: linear-gradient(180deg, #ffd700 0%, #daa520 100%);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .lantern-body::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 15px;
+      background: linear-gradient(180deg, #ffd700, #ff4444);
+    }
+
+    @media (max-width: 640px) {
+      .envelope { width: 220px; height: 160px; }
+      .password-container { padding: 32px 24px; }
+      .greeting-card { padding: 32px 24px; margin: 16px; }
+      .greeting-text { font-size: 15px; }
+      .flower-pot { width: 140px; height: 200px; }
+      .pot { width: 60px; height: 45px; }
+      .branch { height: 130px; }
+      .lantern { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="night-sky"></div>
+  <div class="stars" id="stars"></div>
+  <canvas id="fireworks-canvas"></canvas>
+
+  <div class="lantern" style="top: 80px; left: 8%;"><div class="lantern-body"></div></div>
+  <div class="lantern" style="top: 120px; right: 10%; animation-delay: 1s;"><div class="lantern-body"></div></div>
+  <div class="lantern" style="top: 60px; left: 25%; animation-delay: 2s;"><div class="lantern-body"></div></div>
+
+  <div class="flower-container">
+    <div class="flower-pot left"><div class="pot"></div><div class="branch flower-animate" style="height: 160px;"></div></div>
+    <div class="flower-pot right"><div class="pot"></div><div class="branch flower-animate" style="height: 150px; animation-delay: 0.5s;"></div></div>
+  </div>
+
+  <div id="screen-intro" class="screen">
+    <h1 class="font-display text-5xl md:text-7xl text-center mb-8" style="color: var(--accent); text-shadow: 0 0 40px rgba(251, 191, 36, 0.6);">Chúc Mừng Năm Mới</h1>
+    <div class="envelope-container" onclick="openEnvelope()" role="button" tabindex="0" aria-label="Mở bao lì xì">
+      <div class="envelope">
+        <div class="envelope-inner"></div>
+        <div class="envelope-body">
+          <div style="position: absolute; top: 60%; left: 50%; transform: translateX(-50%); text-align: center;">
+            <div class="font-display text-3xl" style="color: var(--gold);">Xin Chào</div>
+            <div class="text-sm mt-2 opacity-70">Click để mở</div>
+          </div>
+        </div>
+        <div class="envelope-flap"></div>
+        <div class="envelope-seal"><span>Lộc</span></div>
+      </div>
+    </div>
+    <p class="mt-8 text-lg opacity-70 animate-pulse">Nhấn vào bao lì xì để mở</p>
+  </div>
+
+  <div id="screen-password" class="screen hidden">
+    <div class="password-container">
+      <h2 class="font-display text-4xl mb-3 text-center" style="color: var(--accent);">Nhập Mật Khẩu</h2>
+      <p class="text-center opacity-70 mb-6">Nhập mật khẩu để xem lời chúc riêng</p>
+      <input type="text" id="password-input" class="input-field mb-4" placeholder="Nhập mật khẩu..." autocomplete="off">
+      <p id="error-message" class="text-red-400 text-center mb-4 opacity-0 transition-opacity">Sai mật khẩu! Thử lại nhé.</p>
+      <button class="btn btn-primary w-full" onclick="checkPassword()">Mở Thư Chúc</button>
+    </div>
+  </div>
+
+  <div id="screen-greeting" class="screen hidden">
+    <div class="greeting-card">
+      <div id="group-badge" class="group-badge"></div>
+      <h2 id="greeting-title" class="font-display text-4xl mb-6" style="color: var(--accent);"></h2>
+      <div id="greeting-content" class="greeting-text"></div>
+      <button class="btn btn-primary mt-8" onclick="resetAll()">Xem Lời Chúc Khác</button>
+    </div>
+  </div>
+
+  <script>
+    const groupData = {
+      'nam moi': {
+        title: 'Gửi Bạn',
+        badge: 'Năm Mới',
+        badgeStyle: 'background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white;',
+        greetings: [
+          `Năm cũ đã đi qua, mình cùng nhau qua nhiều kỷ niệm.\n\nChúc năm mới:\n- Sức khỏe dầy đủ\n- Tiền vô tận\n- Chuyện tốt đến, chuyện xấu đi\n\nNăm 2026 sẽ là một năm tuyệt vời!`,
+          `Năm mới đến rồi!\n\nChúc bạn năm 2026:\n- Gặp nhiều may mắn\n- Công việc hanh thông\n- Tình cảm đẹp\n\nHẹn gặp lại nhé!`,
+          `Năm mới, chuyện mới!\n\nChúc bạn:\n- Sức khỏe nhiều\n- Tiền vào như nước\n- Hạnh phúc tràn đầy\n\nNăm 2026 phát tài nha!`,
+          `Tết đến, chúc bạn:\n\nMột năm mới an khang\nHai chân thiện tụ\nBa hướng gia phong\nBốn mùa bình an\n\nHappy New Year!`,
+          `Chúc bạn năm mới:\n\nTiền vào đầy túi\nSức khỏe đầy đủ\nVạn sự hanh thông\n\n2026 sẽ là năm của bạn!`,
+          `Năm mới chúc bạn:\n\nChuyện gì cũng ổn\nViệc gì cũng thuận\nMùa màng không thiếu!`,
+          `Chúc bạn năm 2026:\n\nGặp đôi may mắn\nAn khang thịnh vượng\nTiền vào như sông\nTình yêu trăm năm!`,
+          `Tết về, chúc bạn:\n\nSức khỏe như voi\nTiền vào như nước\nTình yêu ngọt ngào\nHạnh phúc tràn đầy!`,
+          `Năm 2026, chúc bạn:\n\nCông việc tiến thẳng\nTiền bạc đầy nhà\nTình yêu đẹp\nSức khỏe tốt`,
+          `Chào năm mới!\n\nChúc bạn:\n- Gặp nhiều điều may\n- Làm được nhiều chuyện\n- Có nhiều bạn mới\n- Đi nhiều nơi đẹp`,
+          `Tết về ruộng xuân\nChúc bạn năm mới:\n\nVui vẻ cuộc đời\nKhỏe mạnh mỗi ngày\nTiền vào đầy túi\nTình yêu đến tự nhiên`,
+          `Năm mới đến, chúc bạn:\n\nAn khang thịnh vượng\nVạn sự như ý\nThành công tràn đầy\nHạnh phúc mãi mãi`,
+          `2026 sẽ là năm tuyệt vời!\n\nChúc bạn:\n- Đạt được mọi ước mơ\n- Thành công trong mọi việc\n- Luôn giữ được nụ cười`,
+          `Chúc bạn năm mới:\n\nTiền như nước sông\nKhỏe như heo rừng\nVui như thợ săn\nĐẹp như tình nhân`,
+          `Năm cũ đã qua\nNăm mới đến rồi\n\nChúc bạn:\n- Bỏ qua nhiều buồn phiền\n- Đón nhận nhiều niềm vui\n- Khởi đầu mới thật tốt!`,
+          `Xuân về, chúc bạn:\n\nGia đình bình an\nCông việc hanh thông\nTiền bạc đầy nhà\nTình yêu ngọt ngào`,
+          `Năm mới, điều mới!\n\nChúc bạn:\n- Khởi đầu bằng niềm vui\n- Kết thúc bằng thành công\n- Giữa chàng bằng hạnh phúc`,
+          `Tết đến xuân về\nChúc bạn năm mới:\n\nLộc vào đầy túi\nPhúc đầy trong lòng\nAn khang thịnh vượng`,
+          `Chúc bạn năm 2026:\n\nĐược nhiều quà\nĂn nhiều ngon\nNgủ nhiều giấc\nVui nhiều chuyện`,
+          `Năm mới chúc bạn:\n\nGặp người tốt\nLàm việc tốt\nGặp chuyện tốt\nĐược kết quả tốt!`,
+          `2026 - Năm của thành công!\n\nChúc bạn:\n- Công danh thành tựu\n- Sự nghiệp tiến thân\n- Gia đình hạnh phúc`,
+          `Xuân mới, vạn mới!\n\nChúc bạn:\n- Cuộc đời mới tươi\n- Tình yêu mới mẻ\n- Công việc mới lợi`,
+          `Tết về sum họp\nChúc bạn năm mới:\n\nGia đình yêu thương\nBạn bè chân tình\nCuộc sống bình an`,
+          `Năm mới chúc bạn:\n\nĐi về phương đông\nGặp người trần áo\nĐược người trong mộng\nHạnh phúc vu vao`,
+          `Chúc bạn 2026:\n\nThiên thời lợi lộc\nĐịa lợi xung quanh\nNhân hòa công thành\nThần tài mời mình`,
+          `Năm mới rồng cà!\n\nChúc bạn:\n- Rồng lên trời xanh\n- Gắp mây mây trắng\n- Thả điều ước mỏ`,
+          `Tết đến vui quá!\n\nChúc bạn:\n- Ăn tết thỏa thích\n- Chơi tết đam đà\n- Nhận tết nhiều nhà`,
+          `Năm 2026, chúc bạn:\n\nMỗi ngày một tốt\nMỗi tháng một may\nCả năm hạnh phúc\nNăm sau còn hay!`
+        ]
+      },
+      '10012008': {
+        title: 'Gửi Lê Na ',
+        badgeStyle: 'background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white;',
+        greetings: [
+          `hi bạn thân iu,\nVậy là năm 2026 đã đến rồi. Chúc bạn một năm mới thật nhiều sức khỏe, niềm vui và may mắn. Mong rằng mọi dự định của bạn đều thuận lợi, việc học tập và cuộc sống luôn suôn sẻ. Và cảm ơn bạn vì đã luôn ở bên, lắng nghe và chia sẻ cùng mình trong suốt thời gian qua.\n\nBước sang năm mới, mong rằng tụi mình vẫn sẽ đồng hành, cười thật nhiều, vượt qua mọi chuyện cùng nhau và giữ mãi tình bạn đẹp này. Chúc bạn lúc nào cũng tươi cười, mạnh mẽ và hạnh phúc (có sự hỗ trợ từ chat :( )`
+        ]
+      },
+      '16062008': {
+        title: 'Gửi GiaNhư',
+
+        badgeStyle: 'background: linear-gradient(135deg, #ec4899, #be185d); color: white;',
+        greetings: [
+          `hellu cục zàng,\nXuân 2026 gõ cửa, mình chúc bạn luôn khỏe mạnh, vui vẻ và gặp thật nhiều điều tốt đẹp. Mong rằng năm mới sẽ mang đến cho bạn nhiều cơ hội, nhiều niềm vui và những thành công nhỏ nhưng ý nghĩa.\n\nCảm ơn bạn vì đã là một người bạn tuyệt vời, luôn quan tâm và ở bên mình những lúc cần. Mong rằng năm mới này, tụi mình vẫn sẽ cùng nhau học tập tốt hơn, trưởng thành hơn và giữ mãi những kỷ niệm đẹp. Chúc bạn một năm mới an yên và tràn ngập hạnh phúc.( có
+        sự hỗ trợ từ chat hihi)`
+        ]
+      },
+      'yeu cau': {
+        title: 'Gửi thương của tớ',
+        badge: 'người tui thương',
+        badgeStyle: 'background: linear-gradient(135deg, #f43f5e, #be123c); color: white;',
+        greetings: [
+          `Năm 2026 bắt đầu một hành trình mới,\ntớ chúc người mình yêu luôn mạnh khỏe, vui vẻ và gặp thật nhiều may mắn trong cuộc sống. Mong rằng mọi dự định, ước mơ đều từng bước trở thành hiện thực và mỗi ngày trôi qua đều có thật nhiều niềm vui.\n\nCảm ơn vì đã luôn ở bên, lắng nghe, chia sẻ và mang lại cho tớ những cảm xúc thật đẹp. Năm mới này, mong rằng chúng ta sẽ tiếp tục đồng hành, thấu hiểu và trân trọng nhau nhiều hơn, cùng nhau tạo nên những kỷ niệm đáng nhớ. Chúc cho tình cảm của chúng ta luôn ấm áp, bền lâu và bình yên.Yêu nhìu lắm`
+        ]
+      },
+      'bo': {
+        title: 'Gửi Bố Yêu',
+        badge: 'Bố',
+        badgeStyle: 'background: linear-gradient(135deg, #0ea5e9, #0369a1); color: white;',
+        greetings: [
+          `Bố kính yêu,\nXuân 2026 lại về, con xin gửi tới bố những lời chúc tốt đẹp nhất. Con chúc bố luôn mạnh khỏe, bình an, tinh thần lúc nào cũng vui vẻ và lạc quan. Mong rằng mọi lo toan, vất vả trong cuộc sống sẽ nhẹ nhàng hơn để bố có thêm nhiều thời gian nghỉ ngơi, tận hưởng những khoảnh khắc hạnh phúc bên gia đình.\n. Bước sang năm mới, con mong bố luôn giữ gìn sức khỏe, sống thật vui và an yên.`
+        ]
+      },
+      'me': {
+        title: 'Gửi Mẹ Yêu',
+        badge: 'Mẹ',
+        badgeStyle: 'background: linear-gradient(135deg, #f43f5e, #be123c); color: white;',
+        greetings: [
+          `Mẹ yêu dấu,\nKhi mùa xuân 2026 gõ cửa, con chỉ mong mẹ luôn khỏe mạnh, bình yên và hạnh phúc. Con chúc mẹ mỗi ngày đều tràn ngập niềm vui, nụ cười luôn nở trên môi và mọi mệt mỏi đều sớm tan biến.\n. Năm mới đến, con mong mẹ sống thật vui, thật nhẹ nhàng và luôn cảm nhận được tình yêu của con dành cho mẹ.`
+        ]
+      },
+      'anh': {
+        title: 'Gửi Anh Trai',
+        badge: 'Anh Trai',
+        badgeStyle: 'background: linear-gradient(135deg, #14b8a6, #0f766e); color: white;',
+        greetings: [
+          `Chúc Anh năm mới!\n\nAnh là bài học, là người hướng dẫn.\nChúc Anh năm 2025:\n- Công việc tiến tiến\n- Tình cảm đẹp\n- Sức khỏe tốt\n\nEm tôn trọng Anh!`
+        ]
+      },
+      'chi': {
+        title: 'Gửi Chị Gái',
+        badge: 'Chị Gái',
+        badgeStyle: 'background: linear-gradient(135deg, #a855f7, #7e22ce); color: white;',
+        greetings: [
+          `Chúc Chị năm mới!\n\nChị là người chia sẻ, là bạn thân.\nChúc Chị năm 2025:\n- Luôn xinh đẹp\n- Công việc tốt\n- Tình yêu hạnh phúc\n\nEm yêu Chị!`
+        ]
+      },
+      'em': {
+        title: 'Gửi zai',
+        badge: 'zai',
+        badgeStyle: 'background: linear-gradient(135deg, #fb923c, #ea580c); color: white;',
+        greetings: [
+          `Chúc thằng e năm mới lớn nhanh ,học giỏi, bớt lười, đẹp trai, gặp nhiều may mắn!`
+        ]
+      },
+  'bac': {
+  title: 'Gửi Bác',
+  badge: 'Bác',
+  badgeStyle: 'background: linear-gradient(135deg, #64748b, #475569); color: white;',
+  greetings: [
+    `Chúc Bác năm mới!\n\nBác là người thân, là người đáng kính.\nChúc Bác năm 2026:\n- Sức khỏe dồi dào\n- Tinh thần sảng khoái\n- Bình an bên gia đình\n\nCháu yêu Bác!`,
+    `Kính chúc Bác năm mới sức khỏe dẻo dai, tinh thần minh mẫn, sống vui vẻ và hạnh phúc bên con cháu.\n\nMong rằng năm 2026 sẽ mang đến cho Bác thật nhiều niềm vui và may mắn!`,
+    `Năm mới con chúc Bác:\n\nAn khang thịnh vượng\nVạn sự như ý\nTâm tư thỏa nguyện\nGia đạo bình an\n\nChúc Bác luôn mạnh khỏe để làm chỗ dựa cho con cháu!`,
+    `Tết đến xuân về, cháu kính chúc Bác tuổi mới mạnh khỏe, dẻo dai.\n\nCảm ơn Bác đã luôn quan tâm, dạy bảo con cháu. Chúc Bác một năm mới an nhiên và hạnh phúc!`,
+    `Chúc Bác năm 2026:\n\nSức khỏe như voi\nTiền vào như nước\nCon cháu thành tài\nGia đình hòa thuận\n\nChúc Bác tuổi mới vạn sự hanh thông!`,
+    `Mùa xuân mới mang theo những điều tốt đẹp nhất. Chúc Bác năm mới luôn vui vẻ, bình tâm và tận hưởng những khoảnh khắc sum vầy bên gia đình.\n\nKính chúc Bác thọ tỷ Nam Sơn!`,
+    `Năm mới chúc Bác:\n\nPhúc như Đông Hải\nThọ tỷ Nam Sơn\nTài lộc đầy nhà\nVui vẻ mỗi ngày\n\nCháu chúc Bác luôn an khang và hạnh phúc!`,
+    `Kính gửi Bác !\n\nNăm 2026, chúc Bác gạt bỏ mọi lo toan, mệt mỏi của năm cũ để đón nhận những điều mới mẻ, tốt đẹp. Chúc Bác luôn giữ vững tinh thần lạc quan và mạnh khỏe!`,
+    `Chúc Bác một cái Tết ấm cúng, đầm ấm bên gia đình.\n\nNăm mới, mong Bác luôn cười nhiều, khỏe mạnh và gặp nhiều may mắn trong cuộc sống. Cháu luôn nhớ về Bác!`,
+    `Xuân về mang lộc tới nhà, chúc Bác một năm mới an yên, phúc lộc ngập tràn.\n. Chúc Bác trường thọ!`,
+    `Chúc Bác năm mới:\n\nHay ăn chóng khỏe\nTiền rộng tay tiêu\nLo toan vơi bớt\nNiềm vui nhân đôi\n\nCháu kính chúc Bác!`,
+    `Năm cũ đã qua, năm mới đến. Chúc Bác tuổi mới có nhiều chuyển biến tích cực, sức khỏe tốt hơn và niềm vui nhiều hơn.\n\nGửi đến Bác lời chúc an khang thịnh vượng nhất!`,
+    `Bác ơi, Tết đã về rồi!\n\nChúc Bác năm mới chân cứng đá mềm, làm gì cũng thành công, gia đình luôn hạnh phúc. Mong Bác luôn khỏe mạnh để cùng con cháu đón nhiều cái Tết nữa!`,
+    `Kính chúc Bác năm 2026:\n\nTâm hồn thư thái\nThân thể an nhiên\nGia đình hạnh phúc\nCon cháu thảo hiền\n\nChúc Bác tuổi mới vạn sự như ý!`,
+    `Chúc Bác năm mới nhận được nhiều lộc, nhiều quà nhưng điều quan trọng nhất là nhận được nhiều sức khỏe và niềm vui.\n\nCháu chúc Bác luôn mạnh mẽ và vững vàng!`,
+    `Xuân này, chúc Bác:\n\nGià mà không già\nKhỏe như thanh niên\nVui như thiếu nhi\nGiàu như tỷ phú\n\nChúc Bác một năm thật nhiều tiếng cười!`,
+    `Năm mới 2026, chúc Bác cuộc sống an nhàn, con cháu nghe lời, cháu chắt ngoan ngoãn.\n\nKính chúc Bác một năm bình an và hạnh phúc!`,
+    `Gửi đến Bác lời chúc năm mới chân thành nhất.\n\nChúc Bác luôn giữ được tâm thế bình thản, an vui trước mọi sự đời. Mong Bác sống lâu trăm tuổi bên con cháu!`,
+    `Chúc Bác năm mới:\n\nVạn sự tốt lành\nBách sự bình an\nThiên thời địa lợi\nNhân hòa gia đạo\n`,
+    `Năm 2026, mong Bác sẽ có những chuyến đi chơi vui vẻ, những bữa cơm ngon bên gia đình và một sức khỏe dẻo dai.\n\nChúc Bác năm mới an khang và thịnh vượng!`,
+    `Tết đến, chúc Bác:\n\nNăm mới thắng lợi\nTuổi mới hạnh phúc\n Tâm mới an lạc\nLộc mới đầy nhà\n\nKính chúc Bác một mùa xuân tuyệt vời!`
+  ]
+  },
+      'cau': {
+        title: 'Gửi Cậu',
+        badge: 'Cậu',
+        badgeStyle: 'background: linear-gradient(135deg, #6366f1, #4338ca); color: white;',
+        greetings: [
+          `Chúc Cậu năm mới!\n\nCậu là người thân, là người gần gũi.\nChúc Cậu năm 2026:\n- Sức khỏe đầy đủ\n- Công việc hanh thông\n- Hạnh phúc bên gia đình\n\nCháu yêu Cậu!`
+        ]
+      },
+      'mo': {
+        title: 'Gửi Mợ',
+        badge: 'Mợ',
+        badgeStyle: 'background: linear-gradient(135deg, #f472b6, #db2777); color: white;',
+        greetings: [
+          `Chúc Mợ năm mới!\n\nMợ là người thân, là người yêu thương.\nChúc Mợ năm 2025:\n- Luôn trẻ đẹp\n- Sức khỏe tốt\n- Hạnh phúc bên Cậu và cháu\n\nCháu yêu Mợ!`
+        ]
+      }
+    };
+
+    let currentGroup = '';
+
+    function createStars() {
+      const container = document.getElementById('stars');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 70 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.width = Math.random() * 2 + 1 + 'px';
+        star.style.height = star.style.width;
+        container.appendChild(star);
+      }
+    }
+
+    function createFlowers() {
+      const leftBranch = document.querySelector('.flower-pot.left .branch');
+      const maiPositions = [
+        { x: -30, y: 20 }, { x: 15, y: 40 }, { x: -45, y: 60 },
+        { x: 25, y: 80 }, { x: -20, y: 100 }, { x: 35, y: 120 },
+        { x: -50, y: 90 }, { x: 10, y: 140 }, { x: -35, y: 130 }
+      ];
+      
+      maiPositions.forEach((pos) => {
+        const flower = document.createElement('div');
+        flower.className = 'mai-flower';
+        flower.style.left = `calc(50% + ${pos.x}px)`;
+        flower.style.top = `${180 - pos.y}px`;
+        for (let j = 0; j < 5; j++) {
+          const petal = document.createElement('div');
+          petal.className = 'mai-petal';
+          flower.appendChild(petal);
+        }
+        leftBranch.appendChild(flower);
+      });
+
+      const rightBranch = document.querySelector('.flower-pot.right .branch');
+      const daoPositions = [
+        { x: 25, y: 30 }, { x: -15, y: 50 }, { x: 40, y: 70 },
+        { x: -30, y: 85 }, { x: 15, y: 100 }, { x: -20, y: 120 },
+        { x: 35, y: 110 }, { x: -10, y: 140 }, { x: 25, y: 130 }
+      ];
+      
+      daoPositions.forEach((pos) => {
+        const flower = document.createElement('div');
+        flower.className = 'dao-flower';
+        flower.style.left = `calc(50% + ${pos.x}px)`;
+        flower.style.top = `${170 - pos.y}px`;
+        for (let j = 0; j < 5; j++) {
+          const petal = document.createElement('div');
+          petal.className = 'dao-petal';
+          flower.appendChild(petal);
+        }
+        rightBranch.appendChild(flower);
+      });
+    }
+
+    const canvas = document.getElementById('fireworks-canvas');
+    const ctx = canvas.getContext('2d');
+    let fireworks = [];
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    class Firework {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height;
+        this.targetY = Math.random() * canvas.height * 0.5 + 50;
+        this.speed = 3 + Math.random() * 2;
+        this.angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.3;
+        this.trail = [];
+        this.exploded = false;
+        const colors = ['#ffd700', '#ff6b6b', '#ff4444', '#fbbf24', '#ff8c00', '#ff69b4', '#87ceeb', '#98fb98'];
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        if (!this.exploded) {
+          this.trail.push({ x: this.x, y: this.y });
+          if (this.trail.length > 10) this.trail.shift();
+          this.x += Math.cos(this.angle) * this.speed;
+          this.y += Math.sin(this.angle) * this.speed;
+          if (this.y <= this.targetY) this.explode();
+        }
+      }
+
+      explode() {
+        this.exploded = true;
+        const particleCount = 60 + Math.floor(Math.random() * 40);
+        for (let i = 0; i < particleCount; i++) {
+          const angle = (Math.PI * 2 * i) / particleCount + Math.random() * 0.2;
+          const speed = 2 + Math.random() * 3;
+          particles.push(new Particle(this.x, this.y, angle, speed, this.color));
+        }
+      }
+
+      draw() {
+        if (!this.exploded) {
+          for (let i = 0; i < this.trail.length; i++) {
+            const alpha = i / this.trail.length;
+            ctx.beginPath();
+            ctx.arc(this.trail[i].x, this.trail[i].y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255, 200, 100, ${alpha * 0.5})`;
+            ctx.fill();
+          }
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+        }
+      }
+    }
+
+    class Particle {
+      constructor(x, y, angle, speed, color) {
+        this.x = x; this.y = y;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.color = color;
+        this.alpha = 1;
+        this.decay = 0.015 + Math.random() * 0.01;
+        this.size = 2 + Math.random() * 2;
+      }
+
+      update() {
+        this.x += this.vx; this.y += this.vy;
+        this.vy += 0.05;
+        this.vx *= 0.99; this.vy *= 0.99;
+        this.alpha -= this.decay;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, Math.max(0.5, this.size), 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function animateFireworks() {
+      ctx.fillStyle = 'rgba(10, 10, 18, 0.2)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      if (Math.random() < 0.03) fireworks.push(new Firework());
+      fireworks = fireworks.filter(fw => { fw.update(); fw.draw(); return !fw.exploded; });
+      particles = particles.filter(p => { p.update(); p.draw(); return p.alpha > 0; });
+      requestAnimationFrame(animateFireworks);
+    }
+
+    function openEnvelope() {
+      const intro = document.getElementById('screen-intro');
+      const password = document.getElementById('screen-password');
+      setTimeout(() => {
+        intro.classList.add('hidden');
+        password.classList.remove('hidden');
+        document.getElementById('password-input').focus();
+      }, 500);
+    }
+
+    function checkPassword() {
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('error-message');
+      const password = input.value.toLowerCase().trim();
+      if (groupData[password]) {
+        currentGroup = password;
+        const data = groupData[password];
+        const randomGreeting = data.greetings[Math.floor(Math.random() * data.greetings.length)];
+        showGreeting(data.title, randomGreeting, data.badge, data.badgeStyle);
+      } else {
+        error.style.opacity = '1';
+        input.classList.add('shake');
+        setTimeout(() => input.classList.remove('shake'), 400);
+      }
+    }
+
+    function showGreeting(title, content, badge, badgeStyle) {
+      const passwordScreen = document.getElementById('screen-password');
+      const greetingScreen = document.getElementById('screen-greeting');
+      const greetingTitle = document.getElementById('greeting-title');
+      const greetingContent = document.getElementById('greeting-content');
+      const groupBadge = document.getElementById('group-badge');
+      greetingTitle.textContent = title;
+      greetingContent.textContent = content;
+      groupBadge.textContent = badge;
+      groupBadge.style.cssText = badgeStyle;
+      passwordScreen.classList.add('hidden');
+      greetingScreen.classList.remove('hidden');
+    }
+
+    function resetAll() {
+      const greetingScreen = document.getElementById('screen-greeting');
+      const passwordScreen = document.getElementById('screen-password');
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('error-message');
+      currentGroup = '';
+      input.value = '';
+      error.style.opacity = '0';
+      greetingScreen.classList.add('hidden');
+      passwordScreen.classList.remove('hidden');
+      setTimeout(() => input.focus(), 100);
+    }
+
+    document.getElementById('password-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkPassword();
+    });
+    document.querySelector('.envelope-container').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') openEnvelope();
+    });
+    document.getElementById('password-input').addEventListener('input', () => {
+      document.getElementById('error-message').style.opacity = '0';
+    });
+    window.addEventListener('resize', resizeCanvas);
+
+    resizeCanvas();
+    createStars();
+    createFlowers();
+    animateFireworks();
+  </script>
+</body>
+</html>
